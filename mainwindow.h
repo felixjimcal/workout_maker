@@ -1,7 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "exerciseswindow.h"
 #include <QMainWindow>
+#include <QChartView>
+#include <QLineSeries>
+#include <QChart>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,10 +20,14 @@ public:
     ~MainWindow();
 
 private slots:
-
-    void on_addColumnBtn_clicked();
+    void on_pushButton_clicked();
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     Ui::MainWindow *ui;
+    QLineSeries* series;
+    QChart *chart;
+    QChartView *chartView;
+    int counterX = 0, counterY = 0;
 };
 #endif // MAINWINDOW_H

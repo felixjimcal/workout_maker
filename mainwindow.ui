@@ -6,15 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>814</width>
+    <height>481</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>814</width>
+    <height>481</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -38,17 +51,114 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableWidget" name="tableWidget"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QPushButton" name="addColumnBtn">
-          <property name="text">
-           <string>+</string>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
           </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>CHEST</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>TRAPS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>FRONT DELTS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>LATERAL DELTS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>REAR DELTS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>BACK</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>LATS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>LOWER BACK</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>BICEPS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>TRICEPS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>ABS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>REST</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>Monday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Tuesday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Wednesday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Thursday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Friday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Saturday</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Sunday</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>
@@ -62,7 +172,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>814</width>
      <height>21</height>
     </rect>
    </property>

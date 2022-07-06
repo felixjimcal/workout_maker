@@ -1,41 +1,43 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QChartView>
-#include <QLineSeries>
-#include <QChart>
+
+#include <QValueAxis>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    QLineSeries* series = new QLineSeries();
+    series = new QLineSeries();
     series->append(0, 6);
     series->append(2, 4);
     *series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6) << QPointF(18, 3) << QPointF(20, 2);
 
-    QChart *chart = new QChart();
+    chart = new QChart();
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
     chart->setTitle("Simple line chart example");
 
-    QChartView *chartView = new QChartView(chart);
+    chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->chartView->addWidget(chartView);
+
+    // ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    // ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::on_pushButton_clicked() {
+    // series->attachedAxes().at(0)->setMax(counterX+1);
+    // series->attachedAxes().at(1)->setMax(counterY+1);
 }
 
-void MainWindow::on_addColumnBtn_clicked()
+void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
-    int tableColumns = ui->tableWidget->columnCount();
-    if(tableColumns < 7){
-        ui->tableWidget->insertColumn(tableColumns);
-    }
+    ExercisesWindow exercisesWindow(nullptr, row);
+    exercisesWindow.setModal(true);
+    exercisesWindow.exec();
 }
 
