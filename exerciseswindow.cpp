@@ -1,6 +1,8 @@
 #include "exerciseswindow.h"
 #include "ui_exerciseswindow.h"
-#include <QGroupBox>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QListWidgetItem>
 #include <QRadioButton>
 
@@ -21,18 +23,29 @@ void ExercisesWindow::SetTitle(int muscleGroup) {
 }
 
 void ExercisesWindow::LoadExercises(int muscleGroup) {
-  // Aquí saldría a pedir la info a la API
-  // https://helloacm.com/model-view-controller-explained-in-c/
+  QNetworkAccessManager *manager = new QNetworkAccessManager();
+  QObject::connect(manager, &QNetworkAccessManager::finished, this,
+                   &ExercisesWindow::managerFinished);
+  manager->get(
+      QNetworkRequest(QUrl("http://127.0.0.1:8000/musclegroups/" + QString::number(muscleGroup) + "/exercises")));
+}
 
-  exercise.name = "Dips";
-  exercise.muscle_groups.push_back(MuscleGroups::Chest);
-  exercise.muscle_groups.push_back(MuscleGroups::FrontDelts);
-  exercise.muscle_groups.push_back(MuscleGroups::Triceps);
-
-  QVariant v = QVariant::fromValue(exercise);
-  QListWidgetItem *dipsExercise = new QListWidgetItem(exercise.name);
-  dipsExercise->setData(Qt::UserRole, v);
-  ui->listWidget->addItem(dipsExercise);
+void ExercisesWindow::managerFinished(QNetworkReply *reply) {
+  QString ReplyText = reply->readAll();
+  QJsonDocument doc = QJsonDocument::fromJson(ReplyText.toUtf8());
+  QJsonObject obj = doc.object();
+  QJsonArray json_exercises = obj["exercises"].toArray();
+  foreach (const QJsonValue &value, json_exercises) {
+    exercise.name = value["name"].toString();
+    QJsonArray array = value["muscle_groups"].toArray();
+    foreach (const QJsonValue &muscleGroup, array) {
+      exercise.muscle_groups.push_back(MuscleGroups(muscleGroup.toInt(0)));
+    }
+    QVariant v = QVariant::fromValue(exercise);
+    QListWidgetItem *listItem = new QListWidgetItem(exercise.name);
+    listItem->setData(Qt::UserRole, v);
+    ui->listWidget->addItem(listItem);
+  }
 }
 
 void ExercisesWindow::on_listWidget_currentRowChanged(int currentRow) {
@@ -59,7 +72,10 @@ void ExercisesWindow::on_btnOK_clicked() {
   exercise.series = mySeries;
   exercise.reps = myReps;
   exercise.name = ui->listWidget->currentItem()->text();
-  exercise.muscle_groups = QVariant::fromValue(ui->listWidget->currentItem()->data(Qt::UserRole)).value<Exercise>().muscle_groups;
+  exercise.muscle_groups =
+      QVariant::fromValue(ui->listWidget->currentItem()->data(Qt::UserRole))
+          .value<Exercise>()
+          .muscle_groups;
   emit choosenExercise(exercise);
   close();
 }

@@ -32,7 +32,12 @@ def read_root():
 def read_item(muscle_group_id: int):
     result = {}
     if muscle_group_id == 0:
-        result = {"name": "Dips", "muscle_groups": [0, 2, 9]}
+        result = {
+            "exercises": [
+                {"name": "Dips", "muscle_groups": [0, 2, 9]},
+                {"name": "Bench Press", "muscle_groups": [0, 2, 9]},
+            ]
+            }
     elif muscle_group_id == 1:
         result = {"b": "b"}
     return result

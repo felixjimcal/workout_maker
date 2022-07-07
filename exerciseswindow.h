@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <qlistwidget.h>
+#include <qnetworkreply.h>
 
 namespace Ui {
 class ExercisesWindow;
@@ -88,13 +89,14 @@ private slots:
   void on_RepsSlider_sliderMoved(int position);
   void on_btnClose_clicked();
   void on_btnOK_clicked();
+  void managerFinished(QNetworkReply *reply);
 
 private:
   void UpdateTotalReps();
   Ui::ExercisesWindow *ui;
   void SetTitle(int muscleGroup);
   void LoadExercises(int muscleGroup);
-  void DoubleClickedExercise(QListWidgetItem *item);
+
   int mySeries = 1, myReps = 1;
 };
 

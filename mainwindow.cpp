@@ -36,7 +36,7 @@ void MainWindow::on_pushButton_clicked() {
 }
 
 void MainWindow::PrintExercise(ExercisesWindow::Exercise ex) {
-  qDebug() << ex.name;
+  qDebug() << ex.name << " - "<< ex.series<< "x"<< ex.reps<< " - "<< ex.muscle_groups;
   // Aqui actualizamos el grafico de ejercicios
 }
 
