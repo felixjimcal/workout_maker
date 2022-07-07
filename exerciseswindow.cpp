@@ -59,10 +59,7 @@ void ExercisesWindow::on_btnOK_clicked() {
   exercise.series = mySeries;
   exercise.reps = myReps;
   exercise.name = ui->listWidget->currentItem()->text();
-  exercise.muscle_groups =
-      QVariant::fromValue(ui->listWidget->currentItem()->data(Qt::UserRole))
-          .value<Exercise>()
-          .muscle_groups;
+  exercise.muscle_groups = QVariant::fromValue(ui->listWidget->currentItem()->data(Qt::UserRole)).value<Exercise>().muscle_groups;
   emit choosenExercise(exercise);
   close();
 }
