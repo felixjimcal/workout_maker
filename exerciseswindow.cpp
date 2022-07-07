@@ -24,26 +24,45 @@ void ExercisesWindow::LoadExercises(int muscleGroup) {
   // Aquí saldría a pedir la info a la API
   // https://helloacm.com/model-view-controller-explained-in-c/
 
-  // Adding pages with content
-  /*
-QFrame *framePage1 = new QFrame;
-QListWidget *listExercisesPage1 = new QListWidget(framePage1);
+  exercise.name = "Dips";
+  exercise.muscle_groups.push_back(MuscleGroups::Chest);
+  exercise.muscle_groups.push_back(MuscleGroups::FrontDelts);
+  exercise.muscle_groups.push_back(MuscleGroups::Triceps);
 
-struct cat {
-    int i = 0;
-    std::string name = "Kiwi";
-} gato;
-
-QVariant v = QVariant::fromValue(gato);
-QListWidgetItem *dipsExercise = new QListWidgetItem("Dips");
-dipsExercise->setData(0, v);
-QListWidgetItem *bpExercise = new QListWidgetItem("Bench Press");
-listExercisesPage1->addItem(gato.name.c_str());
-listExercisesPage1->addItem(bpExercise);
-ui->toolBox->addItem(listExercisesPage1, "Chest + Triceps + Shoulders");
-*/
+  QVariant v = QVariant::fromValue(exercise);
+  QListWidgetItem *dipsExercise = new QListWidgetItem(exercise.name);
+  dipsExercise->setData(Qt::UserRole, v);
+  ui->listWidget->addItem(dipsExercise);
 }
 
-void ExercisesWindow::on_listWidget_itemActivated(QListWidgetItem *item) {
-  qDebug() << "bb";
+void ExercisesWindow::on_listWidget_currentRowChanged(int currentRow) {
+  ui->btnOK->setEnabled(true);
+}
+
+void ExercisesWindow::on_SeriesSlider_sliderMoved(int position) {
+  mySeries = position;
+  UpdateTotalReps();
+}
+
+void ExercisesWindow::on_RepsSlider_sliderMoved(int position) {
+  myReps = position;
+  UpdateTotalReps();
+}
+
+void ExercisesWindow::UpdateTotalReps() {
+  ui->lblTotalReps->setText(QString::number(mySeries * myReps));
+}
+
+void ExercisesWindow::on_btnClose_clicked() { this->close(); }
+
+void ExercisesWindow::on_btnOK_clicked() {
+  exercise.series = mySeries;
+  exercise.reps = myReps;
+  exercise.name = ui->listWidget->currentItem()->text();
+  exercise.muscle_groups =
+      QVariant::fromValue(ui->listWidget->currentItem()->data(Qt::UserRole))
+          .value<Exercise>()
+          .muscle_groups;
+  emit choosenExercise(exercise);
+  close();
 }

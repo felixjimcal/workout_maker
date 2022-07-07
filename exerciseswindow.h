@@ -72,14 +72,30 @@ public:
     }
   } mgNames;
 
+  struct Exercise {
+    int reps = 0;
+    int series = 0;
+    QString name = "";
+    std::vector<MuscleGroups> muscle_groups;
+  } exercise;
+
+ signals:
+  void choosenExercise(const Exercise & exercise);
+
 private slots:
-  void on_listWidget_itemActivated(QListWidgetItem *item);
+  void on_listWidget_currentRowChanged(int currentRow);
+  void on_SeriesSlider_sliderMoved(int position);
+  void on_RepsSlider_sliderMoved(int position);
+  void on_btnClose_clicked();
+  void on_btnOK_clicked();
 
 private:
+  void UpdateTotalReps();
   Ui::ExercisesWindow *ui;
   void SetTitle(int muscleGroup);
   void LoadExercises(int muscleGroup);
   void DoubleClickedExercise(QListWidgetItem *item);
+  int mySeries = 1, myReps = 1;
 };
 
 #endif // EXERCISESWINDOW_H
