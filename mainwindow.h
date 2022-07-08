@@ -28,7 +28,6 @@ private:
     QLineSeries* series;
     QChart *chart;
     QChartView *chartView;
-    int counterX = 0, counterY = 0;
     void PrintExercise(ExercisesWindow::Exercise ex);
 };
 #endif // MAINWINDOW_H

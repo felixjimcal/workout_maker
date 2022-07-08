@@ -8,10 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   series = new QLineSeries();
-  series->append(0, 6);
-  series->append(2, 4);
-  *series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6)
-          << QPointF(18, 3) << QPointF(20, 2);
+  *series << QPointF(0, 1) << QPointF(1, 4) << QPointF(2, 1) << QPointF(3, 3) << QPointF(4, 1);
 
   chart = new QChart();
   chart->legend()->hide();
@@ -31,20 +28,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::on_pushButton_clicked() {
-  // series->attachedAxes().at(0)->setMax(counterX+1);
-  // series->attachedAxes().at(1)->setMax(counterY+1);
+
 }
 
 void MainWindow::PrintExercise(ExercisesWindow::Exercise ex) {
-  qDebug() << ex.name << " - "<< ex.series<< "x"<< ex.reps<< " - "<< ex.muscle_groups;
+  qDebug() << ex.name << " - " << ex.series << "x" << ex.reps << " - "
+           << ex.muscle_groups;
   // Aqui actualizamos el grafico de ejercicios
 }
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column) {
   ExercisesWindow exercisesWindow(nullptr, row);
   exercisesWindow.setModal(true);
-  QObject::connect(&exercisesWindow, &ExercisesWindow::choosenExercise, [&](const ExercisesWindow::Exercise ex) {
-      PrintExercise(ex);
-  });
+  QObject::connect(
+      &exercisesWindow, &ExercisesWindow::choosenExercise,
+      [&](const ExercisesWindow::Exercise ex) { PrintExercise(ex); });
   exercisesWindow.exec();
 }

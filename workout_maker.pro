@@ -11,11 +11,11 @@ CONFIG += c++17
 SOURCES += \
     exerciseswindow.cpp \
     main.cpp \
-    mainwindow.cpp 
+    mainwindow.cpp
 
 HEADERS += \
     exerciseswindow.h \
-    mainwindow.h 
+    mainwindow.h
 
 FORMS += \
     exerciseswindow.ui \
