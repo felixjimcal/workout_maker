@@ -1,3 +1,4 @@
+#include <QRandomGenerator>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -28,7 +29,15 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::on_pushButton_clicked() {
+    chart->removeAllSeries();
 
+    int top = 9;
+    series = new QLineSeries();
+    *series << QPointF(0, QRandomGenerator::global()->bounded(top)) << QPointF(1, QRandomGenerator::global()->bounded(top))
+            << QPointF(2, QRandomGenerator::global()->bounded(top)) << QPointF(3, QRandomGenerator::global()->bounded(top))
+            << QPointF(4, QRandomGenerator::global()->bounded(top))<< QPointF(5, QRandomGenerator::global()->bounded(top));
+    chart->addSeries(series);
+    chart->createDefaultAxes();
 }
 
 void MainWindow::PrintExercise(ExercisesWindow::Exercise ex) {

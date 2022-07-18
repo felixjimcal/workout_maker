@@ -1,15 +1,7 @@
 # workout_maker
 
-⚠PROJECT DISCONTINUED ⚠<br>
 <br>
 <br>
-Reasons:<br>
-Fitness:<br>
-* Theres no option for a Weider routine, actually is more like a fullbody. <br>
-
-Tech:<br>
-* QLinechart do not helps. Bad documentation, no refreshing guides. <br>
-* QCustomplot has no support for modern Qt versions. <br>
 <br>
 <br>
 
