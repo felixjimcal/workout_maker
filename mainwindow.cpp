@@ -1,6 +1,6 @@
-#include <QRandomGenerator>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QRandomGenerator>
 
 #include <QValueAxis>
 
@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   series = new QLineSeries();
-  *series << QPointF(0, 1) << QPointF(1, 4) << QPointF(2, 1) << QPointF(3, 3) << QPointF(4, 1);
+  *series << QPointF(0, 1) << QPointF(1, 4) << QPointF(2, 1) << QPointF(3, 3)
+          << QPointF(4, 1);
 
   chart = new QChart();
   chart->legend()->hide();
@@ -29,15 +30,15 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::on_pushButton_clicked() {
-    chart->removeAllSeries();
+  chart->removeAllSeries();
 
-    int top = 9;
-    series = new QLineSeries();
-    *series << QPointF(0, QRandomGenerator::global()->bounded(top)) << QPointF(1, QRandomGenerator::global()->bounded(top))
-            << QPointF(2, QRandomGenerator::global()->bounded(top)) << QPointF(3, QRandomGenerator::global()->bounded(top))
-            << QPointF(4, QRandomGenerator::global()->bounded(top))<< QPointF(5, QRandomGenerator::global()->bounded(top));
-    chart->addSeries(series);
-    chart->createDefaultAxes();
+  series = new QLineSeries();
+  int top = QRandomGenerator::global()->bounded(20);
+  for (int i = 0; i < top; i++) {
+    *series << QPointF(i, QRandomGenerator::global()->bounded(top));
+  }
+  chart->addSeries(series);
+  chart->createDefaultAxes();
 }
 
 void MainWindow::PrintExercise(ExercisesWindow::Exercise ex) {
