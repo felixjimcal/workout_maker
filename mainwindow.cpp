@@ -1,18 +1,19 @@
-#include <QBarSet>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QRandomGenerator>
 #include <QBarCategoryAxis>
+#include <QBarSet>
+#include <QRandomGenerator>
 #include <QValueAxis>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    LoadChart();
+    // LoadChart();
     LoadImage();
 
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(
+                QHeaderView::Stretch);
     // ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
@@ -22,8 +23,7 @@ void MainWindow::on_pushButton_clicked() {
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
 }
 
-void MainWindow::LoadChart()
-{
+void MainWindow::LoadChart() {
     // Initialize chart
     series = new QBarSeries();
     chart = new QChart();
@@ -31,20 +31,25 @@ void MainWindow::LoadChart()
     chart->legend()->setAlignment(Qt::AlignBottom);
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
-    QStringList categories;
-    categories << "L" << "M" << "X"<< "J"<< "V"<< "S"<< "D";
+    weekDays << "L" << "M"  << "X" << "J"  << "V" << "S" << "D";
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
+    axisX->append(weekDays);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
+    int topValue = 15;
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0, topValue);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+
     ExercisesWindow::MuscleGroupNames m;
-        for (auto e : ExercisesWindow::allMuscleGroups) {
-            QBarSet *set0 = new QBarSet(m.getMuscleGroupName(e));
-              for(const auto &c: categories){
-                  *set0 <<QRandomGenerator::global()->bounded(15);
-              }
-            series->append(set0);
+    for (auto e : ExercisesWindow::allMuscleGroups) {
+        QBarSet *set0 = new QBarSet(m.getMuscleGroupName(e));
+        for (const auto &c : weekDays) {
+            *set0 << QRandomGenerator::global()->bounded(topValue);
+        }
+        series->append(set0);
     }
     chart->addSeries(series);
 
@@ -55,8 +60,7 @@ void MainWindow::LoadChart()
     ui->chartView->addWidget(chartView);
 }
 
-void MainWindow::LoadImage()
-{
+void MainWindow::LoadImage() {
     QPixmap pixmap("D:/Felix/Code/workout_maker/images/vitruvian.jpg");
     ui->label->setMinimumWidth(pixmap.width());
     ui->label->setMinimumHeight(pixmap.height());
@@ -66,21 +70,29 @@ void MainWindow::LoadImage()
 }
 
 void MainWindow::UpdateChart() {
-    for (auto const& [day, exercises] : workoutPlan){
-        /*
-         for(auto s : series){
+    /*
+    chart->removeAllSeries();
+    series = new QBarSeries();
 
-         }
-         for(const auto &exs : exercises){
-              *set0 << (exs.series * exs.reps);
-         }
-         */
+    ExercisesWindow::MuscleGroupNames m;
+    for (const auto &e : workoutPlan) {
+        for(const auto &i : e.second){
+            QBarSet *set0 = new QBarSet(m.getMuscleGroupName(i.mainMuscleGroup));
+            for (const auto &c : weekDays) {
+                *set0 << (i.series * i.reps);
+            }
+            series->append(set0);
+        }
     }
+    chart->addSeries(series);
+    */
 }
 
 void MainWindow::PrintExercise(ExercisesWindow::Exercise ex) {
-    QString text = ex.name + " (" + QString::number(ex.series) + "x" +  QString::number(ex.reps) + ")";
-    ui->tableWidget->setItem(exerciseRow, exerciseColumn, new QTableWidgetItem(text));
+    QString text = ex.name + " (" + QString::number(ex.series) + "x" +
+            QString::number(ex.reps) + ")";
+    ui->tableWidget->setItem(exerciseRow, exerciseColumn,
+                             new QTableWidgetItem(text));
 
     SaveWorkout(exerciseColumn, ex);
     UpdateChart();
@@ -91,7 +103,8 @@ void MainWindow::SaveWorkout(int exerciseColumn, ExercisesWindow::Exercise ex) {
     if (isPresent != workoutPlan.end()) {
         isPresent->second.push_back(ex);
     } else {
-        workoutPlan.insert({exerciseColumn, std::vector<ExercisesWindow::Exercise>{ex}});
+        workoutPlan.insert(
+                    {exerciseColumn, std::vector<ExercisesWindow::Exercise>{ex}});
     }
 }
 

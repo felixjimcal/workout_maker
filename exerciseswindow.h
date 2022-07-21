@@ -99,6 +99,7 @@ private slots:
 private:
   void UpdateTotalReps();
   Ui::ExercisesWindow *ui;
+  void LoadComboBoxExercises();
   void LoadExercises(int muscleGroup);
 
   int mySeries = 1, myReps = 1;

@@ -10,16 +10,23 @@ ExercisesWindow::ExercisesWindow(QWidget *parent)
     : QDialog(parent), ui(new Ui::ExercisesWindow) {
     ui->setupUi(this);
 
+    LoadComboBoxExercises();
 }
 
 ExercisesWindow::~ExercisesWindow() { delete ui; }
+
+void ExercisesWindow::LoadComboBoxExercises() {
+    MuscleGroupNames m;
+    for (auto e : allMuscleGroups) {
+        ui->comboBox->addItem(mgNames.getMuscleGroupName(e));
+    }
+}
 
 void ExercisesWindow::LoadExercises(int muscleGroup) {
     QNetworkAccessManager *manager = new QNetworkAccessManager();
     QObject::connect(manager, &QNetworkAccessManager::finished, this,
                      &ExercisesWindow::managerFinished);
-    manager->get(
-                QNetworkRequest(QUrl("http://127.0.0.1:8000/musclegroups/" + QString::number(muscleGroup) + "/exercises")));
+    manager->get(QNetworkRequest(QUrl("http://127.0.0.1:8000/musclegroups/" + QString::number(muscleGroup) + "/exercises")));
 }
 
 void ExercisesWindow::managerFinished(QNetworkReply *reply) {
