@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>814</width>
-    <height>481</height>
+    <width>829</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -24,27 +24,9 @@
     <item row="2" column="0">
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>PushButton</string>
+       <string>Add Row</string>
       </property>
      </widget>
-    </item>
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="chartView"/>
-      </item>
-     </layout>
     </item>
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -52,6 +34,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTableWidget" name="tableWidget">
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
           <property name="sizeAdjustPolicy">
            <enum>QAbstractScrollArea::AdjustToContents</enum>
           </property>
@@ -64,66 +49,6 @@
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
           </attribute>
-          <row>
-           <property name="text">
-            <string>CHEST</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>TRAPS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>FRONT DELTS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>LATERAL DELTS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>REAR DELTS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>BACK</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>LATS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>LOWER BACK</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>BICEPS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>TRICEPS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>ABS</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>REST</string>
-           </property>
-          </row>
           <column>
            <property name="text">
             <string>Monday</string>
@@ -165,6 +90,54 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="chartView"/>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="Line" name="line">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblName">
+        <property name="text">
+         <string>@felixjcalvo</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -172,7 +145,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>814</width>
+     <width>829</width>
      <height>21</height>
     </rect>
    </property>

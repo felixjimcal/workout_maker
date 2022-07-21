@@ -13,7 +13,7 @@ class ExercisesWindow : public QDialog {
   Q_OBJECT
 
 public:
-  explicit ExercisesWindow(QWidget *parent = nullptr, int muscleGroup = 0);
+  explicit ExercisesWindow(QWidget *parent = nullptr);
   ~ExercisesWindow();
 
   enum MuscleGroups {
@@ -27,8 +27,10 @@ public:
     LowerBack = 7,
     Biceps = 8,
     Triceps = 9,
-    Abs = 10,
-    Rest = 99
+    Abs = 10
+  };
+  static constexpr std::initializer_list<MuscleGroups> allMuscleGroups = {
+      Chest, Traps, FrontDelts, LateralDelts, RearDelts, Back, Lats, LowerBack, Biceps, Triceps, Abs
   };
 
   struct MuscleGroupNames {
@@ -77,6 +79,7 @@ public:
     int reps = 0;
     int series = 0;
     QString name = "";
+    int mainMuscleGroup = 0;
     std::vector<MuscleGroups> muscle_groups;
   } exercise;
 
@@ -91,10 +94,11 @@ private slots:
   void on_btnOK_clicked();
   void managerFinished(QNetworkReply *reply);
 
+  void on_comboBox_currentIndexChanged(int index);
+
 private:
   void UpdateTotalReps();
   Ui::ExercisesWindow *ui;
-  void SetTitle(int muscleGroup);
   void LoadExercises(int muscleGroup);
 
   int mySeries = 1, myReps = 1;
