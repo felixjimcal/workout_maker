@@ -1,6 +1,7 @@
 # workout_maker
 
-<br>
+Simple workout maker GUI with an API request maker.
+
 <br>
 
 Notes:<br>
